@@ -1,11 +1,18 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+
+final dummyItems = [
+  'https://cdn.pixabay.com/photo/2016/02/05/03/58/moon-1180345_960_720.jpg',
+  'https://cdn.pixabay.com/photo/2018/12/06/02/00/the-milky-way-3859013_960_720.jpg',
+  'https://cdn.pixabay.com/photo/2018/10/15/13/20/cloud-3748950_960_720.jpg',
+  'https://cdn.pixabay.com/photo/2017/05/14/04/05/milky-way-2311279_960_720.jpg',
+];
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,222 +22,385 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(),
-      routes: { //routes 프로퍼티에 Map으로 문자열과 목적지 설정, 문자열 앞에 /붙인다
-        '/first': (context) => MyHomePage(),
-        SecondPage.routeName : (context) => SecondPage(),
-      },
     );
   }
 }
 
-class Iljung {
-  String name;
-  String mydate;
-  String mytime;
-
-  Iljung(this.name, this.mydate, this.mytime);
-
-}
-
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, }) : super(key: key);
-
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  void initState() {
-    super.initState();
-    print('FirstPage initState()');
-  }
-
-
-  @override
-  void dispose() {
-    super.dispose();
-    print('FirstPage dispose()');
-  }
-
-  final myController = TextEditingController();
-  String _selectedTime;
-  DateTime _selectDate;
+  var _index = 0;
+  var _pages = [
+    Page1(),
+    Page2(),
+    Page3(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-        appBar: AppBar(
+      body: _pages[_index],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) {
+          setState(() {
+            _index = index;
+          });
+        },
+        currentIndex: _index,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            label: '홈',
+            icon: Icon(Icons.home),
+          ),
+          BottomNavigationBarItem(
+            label: '이용서비스',
+            icon: Icon(Icons.assignment),
+          ),
+          BottomNavigationBarItem(
+            label: '내 정보',
+            icon: Icon(Icons.account_circle),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-          title: Text('일정 관리'),
+//homepage
+class Page1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          '복잡한 UI',
+          style: TextStyle(color: Colors.black),
         ),
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              pinned: true,
-              expandedHeight: 180.0,
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text('일정 추가'),
-                background: Image.asset('assets/dogsample.jpg',
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.add,
+                color: Colors.black,
+              ),
+              onPressed: () {})
+        ],
+      ),
+      body: ListView(
+        children: <Widget>[
+          _buildTop(),
+          _buildMiddle(),
+          _buildBottom(),
+        ],
+      ),
+    );
+  }
+
+  //1페이지 상단 아이콘
+  Widget _buildTop() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20, bottom: 20),
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              InkWell(
+                onTap: () {
+                  print('clicked');
+                },
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      Icons.local_taxi,
+                      size: 40,
+                    ),
+                    Text('택시'),
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  print('clicked');
+                },
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      Icons.local_taxi,
+                      size: 40,
+                    ),
+                    Text('블랙'),
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  print('clicked!');
+                },
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      Icons.local_taxi,
+                      size: 40,
+                    ),
+                    Text('바이크'),
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  print('clicked!!');
+                },
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      Icons.local_taxi,
+                      size: 40,
+                    ),
+                    Text('대리'),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              InkWell(
+                onTap: () {
+                  print('clicked!');
+                },
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      Icons.local_taxi,
+                      size: 40,
+                    ),
+                    Text('택시'),
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  print('click');
+                },
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      Icons.local_taxi,
+                      size: 40,
+                    ),
+                    Text('블랙'),
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  print('click!');
+                },
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      Icons.local_taxi,
+                      size: 40,
+                    ),
+                    Text('바이크'),
+                  ],
+                ),
+              ),
+              Opacity(
+                opacity: 0.0,
+                child: Column(
+                  children: <Widget>[
+                    Icon(
+                      Icons.local_taxi,
+                      size: 40,
+                    ),
+                    Text('대리'),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  //1페이지 중단 슬라이더
+  Widget _buildMiddle() {
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: 150.0,
+        autoPlay: true,
+      ),
+      items: dummyItems.map((url) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.symmetric(horizontal: 5.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(9.0),
+                child: Image.network(
+                  url,
                   fit: BoxFit.cover,
                 ),
               ),
-            ),
-            SliverFillRemaining(
-              child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: <Widget>[
-                        TextField(
-                          controller: myController,
-                          decoration: InputDecoration(
-                            labelText: '일정 이름',
-                          ),
-                        ),
-                        RaisedButton(
-                          onPressed: () {
-                            Future<DateTime> selectedDate = showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(2020),
-                              lastDate: DateTime(2030),
-                              builder: (BuildContext context, Widget child) {
-                                return Theme(
-                                  data: ThemeData.light(),
-                                  child: child,
-                                );
-                              },
-                            );
-                            selectedDate.then((dateTime) {
-                              setState(() {
-                                _selectDate = dateTime;
-                              });
-                            });
-                          },
-                          child: Text('날짜 선택'),
-                        ),
-                        Text('$_selectDate'),
-
-                        RaisedButton(
-                          onPressed: () {
-                            Future<TimeOfDay> selectedTime = showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.now(),
-                            );
-                            selectedTime.then((timeOfDay) {
-                              setState(() {
-                                _selectedTime = '${timeOfDay.hour}:${timeOfDay.minute}';
-                              });
-                            });
-                          },
-                          child: Text('시간 선택'),
-                        ),
-                        Text('$_selectedTime'),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        TextField(
-                          decoration: InputDecoration(
-                            labelText: '설명',
-                          ),
-                        ),
-                        SizedBox(
-                          height: 120,
-                        ),
-                        RaisedButton(
-                          onPressed: () {
-                            _showDialog();
-                          },
-                          child: Text('일정 추가'),
-                        ),
-                        RaisedButton(
-                          child: Text('목록 보기'),
-                          onPressed: () async {
-                            await Navigator.pushNamed(
-                                context,
-                                SecondPage.routeName,
-                                arguments: Iljung(myController.text, '$_selectedTime', '$_selectDate'));
-                          },
-                        ),
-                      ],
-                    ),
-                  )
-              ),
-            )
-          ],
-        )
-
+            );
+          },
+        );
+      }).toList(),
     );
   }
 
-  void _showDialog() async {
-    return showDialog(
-      context: context,
-      barrierDismissible: true, // 다이얼로그 바깥을 터치해도 닫히지 않는다
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('알림'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('일정이 추가되었습니다'),
-              ],
+  //1페이지 하단 리스트
+  Widget _buildBottom() {
+    final items = List.generate(10, (i) {
+      return ListTile(
+        leading: Icon(Icons.notifications_none),
+        title: Text('[이벤트] 이것은 공지사항입니다'),
+      );
+    });
+    return ListView(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      children: items,
+    );
+  }
+}
+
+//2페이지 이용서비스
+class Page2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text(
+                '객체지향 운송 서비스',
+                style: TextStyle(fontSize: 20),
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white54,
+              ),
             ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('OK'),
-              onPressed: () { // 다이얼로그 표시
-                Navigator.of(context).pop();
+            ListTile(
+              title: Text('서비스 이용'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('기사 후기'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('기사님 전용 (인증 필요)'),
+              onTap: () {
+                Navigator.pop(context);
               },
             ),
           ],
-        );
-      },
+        ),
+      ),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        title: Text(
+          '이용서비스',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 20, left: 15, right: 15),
+        child: Center(
+          child: GridView.count(
+            crossAxisCount: 2,
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 4,
+            children: <Widget>[
+              Card(
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "https://media.istockphoto.com/vectors/taxi-car-graphic-design-element-vector-illustration-vector-id1061967972?k=6&m=1061967972&s=170667a&w=0&h=_G2fzjk3sZAC3QhFz4fa5EqJWvnq1m1ienOrEIkWlu8="),
+                      fit: BoxFit.fitWidth,
+                      alignment: Alignment.topCenter,
+                    ),
+                  ),
+                  child: Align(
+                      alignment: Alignment.bottomCenter, child: Text("택시 호출")),
+                ),
+              ),
+              Card(
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "https://previews.123rf.com/images/graphicbee/graphicbee1705/graphicbee170500015/77403007-%EA%B2%A9%EB%A6%AC-%EB%90%9C-%EA%B0%80%EC%A1%B1-%EB%B9%A8%EA%B0%84-%EC%B0%A8%EC%9E%85%EB%8B%88%EB%8B%A4-%EB%B9%A8%EA%B0%84-%EC%9E%90%EB%8F%99%EC%B0%A8%EC%9D%98-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8-%EB%A0%88%EC%9D%B4-%EC%85%98-.jpg"),
+                      fit: BoxFit.fitWidth,
+                      alignment: Alignment.topCenter,
+                    ),
+                  ),
+                  child: Align(
+                      alignment: Alignment.bottomCenter, child: Text("대리 호출")),
+                ),
+              ),
+              Card(
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "https://data.ac-illust.com/data/thumbnails/55/55b8e9942933201341d36a66220f65ec_t.jpeg"),
+                      fit: BoxFit.fitWidth,
+                      alignment: Alignment.topCenter,
+                    ),
+                  ),
+                  child: Align(
+                      alignment: Alignment.bottomCenter, child: Text("바이크 대여")),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
-
 }
 
-class SecondPage extends StatelessWidget{
-  static const routeName = '/second';
-  final Iljung iljung;
-  SecondPage({@required this.iljung});
-
+//3페이지 내정보
+class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Iljung args = ModalRoute.of(context).settings.arguments;
-    print('SecondPage build()');
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('일정 목록'),
+    return Center(
+      child: Text(
+        'My Page',
+        style: TextStyle(fontSize: 40),
       ),
-      body: ListView(
-                children: <Widget>[
-                  ListTile(
-                    title: Text(args.name),
-                    onTap: () {
-                      Navigator.pop(context, 'ok');
-                    },
-                  ),
-                  ListTile(
-                    title: Text('coffee'),
-                    onTap: () {
-                      Navigator.pop(context, 'ok');
-                    },
-                  ),
-                  ListTile(
-                    title: Text('coffee'),
-                    onTap: () {
-                      Navigator.pop(context, 'ok');
-                    },
-                  ),
-                ],
-              ),
     );
   }
 }
